@@ -19,16 +19,11 @@ def listar_alunos():
 
 # 2 FOI
 @app.route("/alunos", methods=["POST"])
-def adicionar_aluno():
-    novo_aluno = request.get_json()
-    
-    # Verificar se o id já existe
-    for aluno in alunos:
-        if aluno["id"] == novo_aluno["id"]:
-            return jsonify({"erro": "Aluno com este ID já existe."}), 400
+def adicionar_alunos():
+    novo_alunos = request.get_json()
+    alunos.append(novo_alunos)
+    return jsonify({"mensagem": "aluno adicionado com sucesso!", "alunos": novo_alunos})
 
-    alunos.append(novo_aluno)
-    return jsonify({"mensagem": "Aluno adicionado com sucesso!", "aluno": novo_aluno})
 
 # 3 FOI
 @app.route("/alunos/<int:id>", methods=["PUT"])
@@ -37,8 +32,8 @@ def atualizar_aluno(id):
         if aluno["id"] == id:
             dados = request.get_json()
             aluno.update(dados)
-            return jsonify({"mensagem": "Aluno atualizado!", "aluno": aluno})
-    return jsonify({"erro": "Aluno não encontrado!"}), 404
+            return jsonify({"mensagem": "Nome atualizado!", "alunos": aluno})
+    return jsonify({"erro": "alunos não encontrado!"}), 404
 
 # 4 FOI
 @app.route("/alunos/<int:id>", methods=["DELETE"])
@@ -46,12 +41,12 @@ def deletar_alunos(id):
     for aluno in alunos:
         if aluno["id"] == id:
             alunos.remove(aluno)
-            return jsonify({"mensagem": "Aluno removido!"})
-    return jsonify({"erro": "Aluno não encontrado!"}), 404
-
+            return jsonify({"mensagem": "alunos removido!"})
+    return jsonify({"erro": "alunos não encontrado!"}), 404
 
 #------
 if __name__ == "__main__":
     app.run(debug=True)
 
-# corrigido
+
+# sem correcao de pt
